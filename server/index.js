@@ -19,37 +19,56 @@ const root = 'http://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp'
 
 // Routes //
 
-// get all products
+// get 20 products
 app.get('/products', async (req, res) => {
-  let url = `${root}/products?count=20`;
-  // const products = await axios.get(url, headers);
-  // res.status(200).json(products.data);
-  axios.get(url, headers)
-    .then((products) => {
-      res.status(200).json(products.data);
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).send(err);
-    })
+
+  let products = await axios.get('http://localhost:3000/products');
+  console.log('PRODUCTTSS: ', products.data);
+  res.send(products.data);
+
+  // let url = `${root}/products?count=20`;
+  // axios.get(url, headers)
+  //   .then((products) => {
+  //     console.log('PRODUCTS: ', products.data)
+  //     res.status(200).json(products.data);
+  //   })
+  //   .catch(err => {
+  //     console.log(err);
+  //     res.status(500).send(err);
+  //   })
+
 })
 
 // product
-app.get('/products/:product_id', (req, res) => {
-  let url = `${root}/products/${req.params.product_id}`;
-  return axios.get(url, headers)
-    .then(result => {
-      res.status(200).json(result.data)})
-    .catch(err => {
-      console.log(err);
-      res.status(500).json(err);})
+app.get('/products/:product_id', async (req, res) => {
+
+  let product = await axios.get(`http://localhost:3000/products/${req.params.product_id}`);
+  console.log('PRODUCCTT: ', product.data);
+  res.send(product.data);
+
+  // let url = `${root}/products/${req.params.product_id}`;
+  // return axios.get(url, headers)
+  //   .then(result => {
+  //     console.log('PRODUUCT: ', result.data);
+  //     res.status(200).json(result.data)})
+  //   .catch(err => {
+  //     console.log(err);
+  //     res.status(500).json(err);})
+
 });
 
 // get product styles
 app.get('/products/:product_id/styles', async (req, res) => {
-  let url = `${root}/products/${req.params.product_id}/styles`;
-  const styles = await axios.get(url, headers);
-  res.status(200).json(styles.data);
+
+  let styles = await axios.get(`http://localhost:3000/products/${req.params.product_id}/styles`);
+  console.log('STYLESSS: ', styles.data);
+  res.send(styles.data);
+
+  // let url = `${root}/products/${req.params.product_id}/styles`;
+  // const styles = await axios.get(url, headers);
+  // console.log('STYLES: ', styles.data);
+  // res.status(200).json(styles.data);
+
 })
 
 /* ---- QA ---- */
@@ -275,5 +294,5 @@ app.get('/:productId', (req, res) => {
   })
 
 })
-let PORT = process.env.PORT || 3000;
+let PORT = process.env.PORT || 1128;
 app.listen(PORT, () => console.log(`Listening at Port: ${PORT}`));

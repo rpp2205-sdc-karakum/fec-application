@@ -47,7 +47,7 @@ class App extends React.Component {
     //localStorage.clear();
     let path = location.pathname;
     if (path === '/') {
-      this.init(71697);
+      this.init(1);
     } else {
       var productId  = path.split('/')[1];
       this.init(productId);
